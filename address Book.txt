@@ -1,0 +1,77 @@
+#!/bin/bash
+
+echo "Enter the FileName:"
+read fname
+echo "The fileName is:$fname"
+touch $fname
+echo "File is Created SuccesFully"
+
+choice=0 
+while [ $choice -ne 6 ] 
+do
+	echo "Enter Your Choice:"
+	echo -e"\n 1)Insert the record\n"
+	echo "2)search the record\n"
+	echo "3)delete the record\n"
+	echo "4)Modify the record\n"
+	echo "5)Display the record\n"
+	echo "6)exit\n"
+	read choice
+	case $choice in
+		1)
+			ch=0
+			while [ $ch -ne 1 ]
+			do
+				echo "Enter the ID:"
+				read Eid
+				echo "Enter the Name:"
+				read Ename
+				echo "Enter the city:"
+				read Ecity
+				echo "Enter the Mob No:"
+				read Emobno
+				echo -e "EID: $Eid \t ENAME: $Ename \t ECITY: $Ecity \t Emobno: $Emobno \n">>"$fname"
+				echo "Do You Want to continue:(0/1)"
+				read ch
+			done
+			;;
+		2)
+		echo "Enter the name to search:"
+		read  Sname
+		grep "$Sname" "$fname"
+		;;
+		3)
+		echo "Enter the record to delete:"
+		read  record
+		sed -i '/'"$record"'/d' "$fname"
+		;;
+		4)
+		echo "Enter the choice for modify:(a/b)"
+		read modify
+		case $modify in
+			a)
+			echo "Enter the name to modify"
+			read Ename
+			echo "Enter the new name:"
+			read NEname
+			
+			sed -i "s/$Ename/$NEname/g" "$fname" 
+			;;
+			b)
+			echo "enter the city name:"
+			read Ecity
+			echo "enter the new name of city:"
+			read NCity
+			sed -i "s/$Ecity/$NCity/" "$fname"
+			;;
+		esac
+		;;
+		5)
+		cat "$fname"
+		;;
+		6)
+		;;
+	esac
+done
+			
+	
